@@ -22,13 +22,13 @@ class Equip extends Model
         return $this->belongsTo(Estadi::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
     public function manager()
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class, 'equip_id')
+            ->where('role', 'manager');
     }
+
+
 
     /**
      * Enllacem explícitament amb la factory

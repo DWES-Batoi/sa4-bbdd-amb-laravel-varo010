@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('cognoms');
             $table->integer('dorsal');
             $table->foreignId('equip_id')->constrained('equips')->onDelete('cascade');
+            $table->string('foto')->nullable();
+            $table->string('posicio')->nullable();
+            $table->date('data_naixement')->nullable();
             $table->timestamps();
         });
     }

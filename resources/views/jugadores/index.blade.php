@@ -3,8 +3,8 @@
 @section('content')
 <div class="container">
   <div class="flex justify-between items-center mb-4">
-    <h1 class="title">Llistat de Jugadors</h1>
-    <a href="{{ route('jugadors.create') }}" class="btn btn--primary">Nou Jugador</a>
+    <h1 class="title">{{ __('Llistat de jugadors') }}</h1>
+    <a href="{{ route('jugadors.create') }}" class="btn btn--primary">{{ __('Crear Jugador') }}</a>
   </div>
   <div class="grid-cards">
     @foreach ($jugadors as $jugador)
@@ -14,17 +14,17 @@
           <span class="card__badge">#{{ $jugador->dorsal }}</span>
         </header>
         <div class="card__body">
-          <p><strong>Equip:</strong> {{ $jugador->equip->nom ?? 'Sense equip' }}</p>
+          <p><strong>{{ __('Equip') }}:</strong> {{ $jugador->equip->nom ?? 'Sense equip' }}</p>
         </div>
 
         <footer class="card__footer">
-          <a class="btn btn--ghost" href="{{ route('jugadors.show', $jugador) }}">Ver</a>
-          <a class="btn btn--primary" href="{{ route('jugadors.edit', $jugador) }}">Editar</a>
+          <a class="btn btn--ghost" href="{{ route('jugadors.show', $jugador) }}">{{ __('Veure') }}</a>
+          <a class="btn btn--primary" href="{{ route('jugadors.edit', $jugador) }}">{{ __('Editar') }}</a>
 
           <form method="POST" action="{{ route('jugadors.destroy', $jugador) }}" class="inline">
             @csrf
             @method('DELETE')
-            <button class="btn btn--danger" type="submit">Eliminar</button>
+            <button class="btn btn--danger" type="submit">{{ __('Eliminar') }}</button>
           </form>
         </footer>
       </article>

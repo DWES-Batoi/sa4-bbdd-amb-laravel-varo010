@@ -1,8 +1,8 @@
 @extends('layouts.equip')
-@section('title', "Guia d'Estadis")
+@section('title', __('Llistat d\'estadis'))
 
 @section('content')
-<h1 class="text-3xl font-bold text-blue-800 mb-6">Guia d'Estadis</h1>
+<h1 class="text-3xl font-bold text-blue-800 mb-6">{{ __('Llistat d\'estadis') }}</h1>
 
 @if (session('success'))
   <div class="bg-green-100 text-green-700 p-2 mb-4">{{ session('success') }}</div>
@@ -10,15 +10,15 @@
 
 <p class="mb-4">
   <a href="{{ route('estadis.create') }}" class="btn btn--primary">
-    Nou Estadi
+    {{ __('Crear Estadi') }}
   </a>
 </p>
 
 <table class="w-full border-collapse border border-gray-300 dark:border-gray-700">
   <thead class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
     <tr>
-      <th class="border border-gray-300 dark:border-gray-600 p-2">Nom</th>
-      <th class="border border-gray-300 dark:border-gray-600 p-2">Capacitat</th>
+      <th class="border border-gray-300 dark:border-gray-600 p-2">{{ __('Nom') }}</th>
+      <th class="border border-gray-300 dark:border-gray-600 p-2">{{ __('Capacitat') }}</th>
     </tr>
   </thead>
   <tbody>

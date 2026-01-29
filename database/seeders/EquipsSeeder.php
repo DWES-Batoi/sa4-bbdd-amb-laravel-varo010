@@ -4,61 +4,51 @@ namespace Database\Seeders;
 
 use App\Models\Equip;
 use App\Models\Estadi;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class EquipsSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        // Opcional: missatge de depuració
-        dump('EquipsSeeder: abans de crear', [
-            'estadis' => Estadi::count(),
-            'equips'  => Equip::count(),
-        ]);
+        $estadi = Estadi::where('nom', 'Camp Nou')->first();
+        if ($estadi) {
+            $estadi->equips()->updateOrCreate(
+                ['nom' => 'Barça Femení'],
+                ['titols' => 30]
+            );
+        }
 
-        // Assegurem que els 3 estadis principals existeixen
-        $campNou = Estadi::firstOrCreate(
-            ['nom' => 'Camp Nou'],
-            ['capacitat' => 99000]
-        );
+        $estadi = Estadi::where('nom', 'Wanda Metropolitano')->first();
+        if ($estadi) {
+            $estadi->equips()->updateOrCreate(
+                ['nom' => 'Atlètic de Madrid'],
+                ['titols' => 10]
+            );
+        }
 
-        $wanda = Estadi::firstOrCreate(
-            ['nom' => 'Wanda Metropolitano'],
-            ['capacitat' => 68000]
-        );
+        $estadi = Estadi::where('nom', 'Santiago Bernabéu')->first();
+        if ($estadi) {
+            $estadi->equips()->updateOrCreate(
+                ['nom' => 'Real Madrid Femení'],
+                ['titols' => 5]
+            );
+        }
 
-        $bernabeu = Estadi::firstOrCreate(
-            ['nom' => 'Santiago Bernabéu'],
-            ['capacitat' => 81000]
-        );
-
-        // Crear equips “a mà” amb relació
-        $campNou->equips()->firstOrCreate(
-            ['nom' => 'Barça Femení'],
-            ['titols' => 30]
-        );
-
-        $wanda->equips()->firstOrCreate(
-            ['nom' => 'Atlètic de Madrid'],
-            ['titols' => 10]
-        );
-
-        $bernabeu->equips()->firstOrCreate(
-            ['nom' => 'Real Madrid Femení'],
-            ['titols' => 5]
-        );
-
-        // Crear 10 equips més usant la factory
+        // Si tens UNIQUE a equips.nom i la factory pot repetir noms, posa unique() a la factory
         Equip::factory()->count(10)->create();
 
-        // Opcional: comprovar resultats
-        dump('EquipsSeeder: després de crear', [
-            'estadis' => Estadi::count(),
-            'equips'  => Equip::count(),
-        ]);
+        foreach (Equip::all() as $equip) {
+            User::updateOrCreate(
+                ['email' => $equip->id . '@manager.com'],
+                [
+                    'name' => 'Manager ' . $equip->nom,
+                    'password' => Hash::make('1234'),
+                    'role' => 'manager',
+                    'equip_id' => $equip->id,
+                ]
+            );
+        }
     }
 }

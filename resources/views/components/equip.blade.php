@@ -6,6 +6,6 @@
     @endif
 
     <h2 class="text-xl font-bold text-blue-800">{{ $equip->nom }}</h2>
-    <p><strong>Estadi:</strong> {{ $equip->estadi->nom }}</p>
-    <p><strong>Títols:</strong> {{ $equip->titols }}</p>
+    <p><strong>{{ __('Estadi') }}:</strong> {{ $equip->estadi->nom }}</p>
+    <p><strong>{{ __('Títols') }}:</strong> {{ $equip->titols }}</p>
 </div>
